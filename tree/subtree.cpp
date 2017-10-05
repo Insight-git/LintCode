@@ -19,35 +19,29 @@ public:
      * @param T2: The roots of binary tree T2.
      * @return: True if T2 is a subtree of T1, or false.
      */
-    void PreOrderTraverse(TreeNode *T1, TreeNode *T2, bool &result)
+    bool IsIdentical(TreeNode *T1, TreeNode *T2)
     {
         if(!T1&&!T2)
-        	return;
-        if((!T1&&T2)||(!T2&&T1))
+            return true;
+        if((!T1&&T2)||(T1&&!T2))
         {
-        	result = false;
-        	return;
+            return false;
         }
-        if(T1->val==T2->val)
+        if(T1->val != T2->val)
         {
-        	result = true;
-        	PreOrderTraverse(T1->left,T2->left,result);
-        	PreOrderTraverse(T1->right,T2->right,result);
-        	return;
+            return false;
         }
-        else
-        {
-        	result = false;
-        	PreOrderTraverse(T1->left,T2,result);
-        	PreOrderTraverse(T1->right,T2,result);
-        	return;
-        }
+        return (IsIdentical(T1->left, T2->left) && IsIdentical(T1->right, T2->right));
     }
     bool isSubtree(TreeNode * T1, TreeNode * T2) {
-        bool result = true;
         if(!T2)
             return true;
-        PreOrderTraverse(T1,T2,result);
-        return result;
+        if(!T1)
+            return false;
+        if(IsIdentical(T1,T2))
+            return true;
+        if(isSubtree(T1->left, T2)||isSubtree(T1->right, T2))
+            return true;
+        return false;
     }
 };
