@@ -28,9 +28,6 @@ public:
      */
     void moveTopTo(Tower &t) {
         // Move the top disk of this tower to the top of t.
-        int top = disks.top();
-        disks.pop();
-        t.add(top);
     }
 
     /*
@@ -41,23 +38,13 @@ public:
      */
     void moveDisks(int n, Tower &destination, Tower &buffer) {
         // Move n Disks from this tower to destination by buffer tower
-        if(n==1)
-        {
-            moveTopTo(destination);
-            return;
-        }
-        else
-        {
-            moveDisks(n-1,buffer,destination);
-            moveTopTo(destination);
-            buffer.moveDisks(n-1,destination,*this);
-        }
     }
 
     /*
      * @return: Disks
      */
     stack<int> getDisks() {
+        // write your code here
         return disks;
     }
 };
